@@ -26,7 +26,8 @@
         <version>0.8-SNAPSHOT</version>
     </parent>
 
-    <artifactId>rubygems</artifactId>
+    <groupId>rubygems</groupId>
+    <artifactId>ruby-maven</artifactId>
     <packaging>gem</packaging>
     <name>ruby wrapper around maven and more</name>
 
@@ -64,6 +65,7 @@
                                 <artifactItem>
                                     <groupId>org.sonatype.pmaven</groupId>
                                     <artifactId>pmaven-cli</artifactId>
+                                    <version>${project.parent.version}</version>
                                     <classifier>bin</classifier>
                                     <type>zip</type>
 				    <outputDirectory>${gem.basedir}</outputDirectory>
