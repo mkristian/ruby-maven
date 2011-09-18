@@ -1,0 +1,5 @@
+* log with rmvn prefix 
+
+* rmvn rake db:migrate should look for bundler
+
+* rails rake should not default env to development, use empty default instead

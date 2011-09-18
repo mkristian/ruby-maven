@@ -18,76 +18,83 @@
 
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
-    <modelVersion>4.0.0</modelVersion>
+  <modelVersion>4.0.0</modelVersion>
 
-    <parent>
-        <groupId>org.sonatype.pmaven</groupId>
-        <artifactId>pmaven</artifactId>
-        <version>0.8-SNAPSHOT</version>
-    </parent>
+  <!--    <parent>
+       <groupId>org.sonatype.pmaven</groupId>
+       <artifactId>pmaven</artifactId>
+       <version>0.8-SNAPSHOT</version>
+       </parent>
+  -->
+  <groupId>rubygems</groupId>
+  <artifactId>ruby-maven</artifactId>
+  <version>${maven.version}.${jruby.plugins.version}</version>
+  <packaging>gem</packaging>
+  <name>ruby wrapper around maven and more</name>
 
-    <groupId>rubygems</groupId>
-    <artifactId>ruby-maven</artifactId>
-    <packaging>gem</packaging>
-    <name>ruby wrapper around maven and more</name>
+  <dependencies>
+  </dependencies>
 
-    <dependencies>
-    </dependencies>
-
-    <properties>
-      <!-- if some more gem releases are needed you can append some number
-      here with the gem.version -->
-      <jruby.plugins.version>0.28.3</jruby.plugins.version>
-      <gem.version>${project.parent.version}.${mavenVersion}.${jruby.plugins.version}</gem.version>
-      <gem.basedir>${project.build.directory}/ruby-maven-${gem.version}</gem.basedir>
-    </properties>
-    <build>
-        <finalName>ruby-maven-${gem.version}-java.gem</finalName>
-        <resources>
-	    <resource>
-                 <targetPath>${gem.basedir}/pmaven-${project.parent.version}</targetPath>
-		 <directory>${project.basedir}/src/main/resources</directory>
-	    </resource>
-	</resources>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-dependency-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <phase>process-sources</phase>
-                        <goals>
-                            <goal>unpack</goal>
-                        </goals>
-                        <configuration>
-                            <outputAbsoluteArtifactFilename>false</outputAbsoluteArtifactFilename>
-                            <artifactItems>
-                                <artifactItem>
-                                    <groupId>org.sonatype.pmaven</groupId>
-                                    <artifactId>pmaven-cli</artifactId>
-                                    <version>${project.parent.version}</version>
-                                    <classifier>bin</classifier>
-                                    <type>zip</type>
-				    <outputDirectory>${gem.basedir}</outputDirectory>
-                                </artifactItem>
-                            </artifactItems>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-
-            <plugin>
-                <groupId>de.saumya.mojo</groupId>
-                <artifactId>gem-maven-plugin</artifactId>
-                <version>${jruby.plugins.version}</version>
-		<extensions>true</extensions>
-                <configuration>
-                  <gemspec>${project.basedir}/src/main/gemspec/maven.gemspec</gemspec>
-                  <launchDirectory>${gem.basedir}/pmaven-${project.parent.version}</launchDirectory>
-		  <includeOpenSSL>false</includeOpenSSL>
-               </configuration>
-            </plugin>
-        </plugins>
-    </build>
-
+  <properties>
+    <!-- if some more gem releases are needed you can append some number
+	 here with the gem.version -->
+    <jruby.plugins.version>0.28.4</jruby.plugins.version>
+    <maven.version>3.0.3</maven.version>
+    <!--      <gem.version>${project.parent.version}.${mavenVersion}.${jruby.plugins.version}</gem.version> -->
+    <gem.basedir>${project.build.directory}/ruby-maven-${project.version}</gem.basedir>
+  </properties>
+  <build>
+    <resources>
+      <resource>
+	<targetPath>${gem.basedir}/apache-maven-${maven.version}</targetPath>
+	<directory>${project.basedir}/src/main/resources</directory>
+      </resource>
+    </resources>
+    <plugins>
+      <plugin>
+	<groupId>org.apache.maven.plugins</groupId>
+	<artifactId>maven-dependency-plugin</artifactId>
+	<executions>
+	  <execution>
+	    <phase>process-sources</phase>
+	    <goals>
+	      <goal>unpack</goal>
+	    </goals>
+	    <configuration>
+	      <outputAbsoluteArtifactFilename>false</outputAbsoluteArtifactFilename>
+	      <artifactItems>
+		<artifactItem>
+		  <groupId>org.apache.maven</groupId>
+		  <artifactId>apache-maven</artifactId>
+		  <version>${maven.version}</version>
+		  <classifier>bin</classifier>
+		  <type>zip</type>
+		  <outputDirectory>${gem.basedir}</outputDirectory>
+		</artifactItem>
+		<artifactItem>
+		  <groupId>de.saumya.mojo</groupId>
+		  <artifactId>ruby-tools</artifactId>
+		  <version>${jruby.plugins.version}</version>
+		  <outputDirectory>${gem.basedir}/apache-maven-${maven.version}/lib/ruby</outputDirectory>
+		</artifactItem>
+	      </artifactItems>
+	    </configuration>
+	  </execution>
+	</executions>
+      </plugin>
+      
+      <plugin>
+	<groupId>de.saumya.mojo</groupId>
+	<artifactId>gem-maven-plugin</artifactId>
+	<version>${jruby.plugins.version}</version>
+	<extensions>true</extensions>
+	<configuration>
+	  <gemspec>${project.basedir}/src/main/gemspec/maven.gemspec</gemspec>
+	  <launchDirectory>${gem.basedir}/apache-maven-${maven.version}</launchDirectory>
+	  <includeOpenSSL>true</includeOpenSSL>
+	</configuration>
+      </plugin>
+    </plugins>
+  </build>
+  
 </project>
