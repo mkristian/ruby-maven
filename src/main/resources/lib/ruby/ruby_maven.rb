@@ -7,21 +7,21 @@ module Maven
     # make the command line for the goals of the jruby-maven-plugins nicer
     PLUGINS = {
       :rake => [:rake],
-      :ruby => [:jruby, :compile],
+      :jruby => [:jruby, :compile],
       :gem => [:package, :install, :push, :exec, :pom, :initialize, :irb],
       :gemify => [:gemify, :versions],
       :rails2 => [:new, :generate, :rake, :server, :console],
-      :rails => [:new, :generate, :rake, :server, :console, :dbconsole, :pom, :initialize],
+      :rails3 => [:new, :generate, :rake, :server, :console, :dbconsole, :pom, :initialize],
       :cucumber => [:test],
-      :spec => [:test],
+      :rspec => [:test],
       :runit => [:test],
-      :bundle => [:install]
+      :bundler => [:install]
     }
     ALIASES = {
-      :jruby => :ruby, 
-      :rspec => :spec, 
-      :rails3 => :rails, 
-      :bundler => :bundle
+      :ruby => :jruby, 
+      :spec => :rspec, 
+      :rails => :rails3, 
+      :bundle => :bundler
     }
 
     def initialize
@@ -66,6 +66,15 @@ module Maven
           else
             goal = PLUGINS[name][0]
           end
+          # determine the version and delete from args if given
+          version = args.detect do |a|
+            a =~ /^-Dplugin.version=/
+          end
+
+          if version
+            args.delete(version)
+            version = version.sub(/^-Dplugin.version=/, ':')
+          end
           aa = if index = args.index("--")
                  args[(index + 1)..-1]
                else
@@ -73,14 +82,6 @@ module Maven
                end
           ruby_args = (args[start, (index || 1000) - start] || []).join(' ')
 
-          # determine the version and delete from args if given
-          version = args.detect do |a|
-            a =~ /^-Dplugin.version=/
-          end
-          if version
-            aa.delete(version)
-            version.sub!(/^-Dplugin.version=/, ':')
-          end
           aa << "de.saumya.mojo:#{name}-maven-plugin#{version}:#{goal}"
           aa << "-Dargs=\"#{ruby_args}\"" if ruby_args.size > 0
           args.replace(aa)
