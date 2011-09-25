@@ -20,19 +20,32 @@
 
   <modelVersion>4.0.0</modelVersion>
 
-  <!--    <parent>
-       <groupId>org.sonatype.pmaven</groupId>
-       <artifactId>pmaven</artifactId>
-       <version>0.8-SNAPSHOT</version>
-       </parent>
-  -->
   <groupId>rubygems</groupId>
   <artifactId>ruby-maven</artifactId>
   <version>${maven.version}.${jruby.plugins.version}</version>
   <packaging>gem</packaging>
   <name>ruby wrapper around maven and more</name>
 
+  <repositories>
+    <repository>
+      <id>rubygems-releases</id>
+      <url>http://rubygems-proxy.torquebox.org/releases</url>
+    </repository>
+  </repositories>
+
   <dependencies>
+    <dependency>
+       <groupId>rubygems</groupId>
+       <artifactId>thor</artifactId>
+       <version>0.14.6</version>
+       <type>gem</type>
+    </dependency>
+    <dependency>
+       <groupId>rubygems</groupId>
+       <artifactId>jruby-openssl</artifactId>
+       <version>0.7.4</version>
+       <type>gem</type>
+    </dependency>
   </dependencies>
 
   <properties>
@@ -40,7 +53,6 @@
 	 here with the gem.version -->
     <jruby.plugins.version>0.28.4</jruby.plugins.version>
     <maven.version>3.0.3</maven.version>
-    <!--      <gem.version>${project.parent.version}.${mavenVersion}.${jruby.plugins.version}</gem.version> -->
     <gem.basedir>${project.build.directory}/ruby-maven-${project.version}</gem.basedir>
   </properties>
   <build>
