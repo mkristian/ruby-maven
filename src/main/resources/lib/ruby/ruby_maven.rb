@@ -1,5 +1,6 @@
 require 'fileutils'
 require 'maven/tools/rails_project'
+require 'java'
 
 module Maven
   class RubyMaven
@@ -188,7 +189,7 @@ module Maven
       a = command_line(args.dup.flatten)
       a << options_array
       a.flatten!
-      a = generate_pom(a)
+      a = generate_pom(*a)
       puts a.join ' '
       if defined? JRUBY_VERSION
         launch_jruby(a)
