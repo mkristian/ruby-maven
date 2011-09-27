@@ -1,6 +1,6 @@
 require 'fileutils'
 require 'maven/tools/rails_project'
-require 'java'
+require 'java' if defined? JRUBY_VERSION
 
 module Maven
   class RubyMaven
@@ -97,7 +97,7 @@ module Maven
       log = File.join('log', 'rmvn.log')
       if File.exists? File.dirname(log)
         File.open(log, 'a') do |f|
-          f.puts "rmvn #{args.join ' '}"
+          f.puts "#{$0.sub(/.*\//, '')} #{args.join ' '}"
         end
       end
     end
@@ -186,6 +186,7 @@ module Maven
     end
 
     def exec(*args)
+      log(args)
       a = command_line(args.dup.flatten)
       a << options_array
       a.flatten!
