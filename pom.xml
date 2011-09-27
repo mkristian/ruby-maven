@@ -22,7 +22,7 @@
 
   <groupId>rubygems</groupId>
   <artifactId>ruby-maven</artifactId>
-  <version>${maven.version}.${jruby.plugins.version}</version>
+  <version>${maven.version}.${jruby.plugins.version}.1</version>
   <packaging>gem</packaging>
   <name>ruby wrapper around maven and more</name>
 
