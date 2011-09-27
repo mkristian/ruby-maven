@@ -1,3 +1,4 @@
+#!/usr/bin/env ruby
 require 'ruby_maven'
 
 mvn = Maven::RubyMaven.new

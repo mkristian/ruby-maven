@@ -1,3 +1,4 @@
+#!/usr/bin/env ruby
 if ARGV.size > 4 || ARGV[0] == "--help" || ARGV[0] == "-h" || ARGV[0] == "-?"
   puts "usage: #{File.basename($0)} [-e <environment>] [--war [<path/to/warfile>]]"
   puts "\tdefault environment: development"
