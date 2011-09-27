@@ -1,5 +1,6 @@
 require 'fileutils'
 require 'maven/tools/rails_project'
+require 'java'
 
 module Maven
   class RubyMaven
