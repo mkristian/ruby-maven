@@ -22,7 +22,7 @@
 
   <groupId>rubygems</groupId>
   <artifactId>ruby-maven</artifactId>
-  <version>${maven.version}.${jruby.plugins.version}.1</version>
+  <version>${maven.version}.${jruby.plugins.version}</version>
   <packaging>gem</packaging>
   <name>ruby wrapper around maven and more</name>
 
@@ -49,9 +49,11 @@
   </dependencies>
 
   <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <!-- if some more gem releases are needed you can append some number
 	 here with the gem.version -->
-    <jruby.plugins.version>0.28.4</jruby.plugins.version>
+    <jruby.plugins.version>0.28.5</jruby.plugins.version>
+    <jruby.plugins.version.postfix>-SNAPSHOT</jruby.plugins.version.postfix>
     <maven.version>3.0.3</maven.version>
     <gem.basedir>${project.build.directory}/ruby-maven-${project.version}</gem.basedir>
   </properties>
@@ -86,7 +88,7 @@
 		<artifactItem>
 		  <groupId>de.saumya.mojo</groupId>
 		  <artifactId>ruby-tools</artifactId>
-		  <version>${jruby.plugins.version}</version>
+		  <version>${jruby.plugins.version}${jruby.plugins.version.postfix}</version>
 		  <outputDirectory>${gem.basedir}/apache-maven-${maven.version}/lib/ruby</outputDirectory>
 		</artifactItem>
 	      </artifactItems>
@@ -98,13 +100,28 @@
       <plugin>
 	<groupId>de.saumya.mojo</groupId>
 	<artifactId>gem-maven-plugin</artifactId>
-	<version>${jruby.plugins.version}</version>
+	<version>${jruby.plugins.version}${jruby.plugins.version.postfix}</version>
 	<extensions>true</extensions>
 	<configuration>
 	  <gemspec>${project.basedir}/src/main/gemspec/maven.gemspec</gemspec>
 	  <launchDirectory>${gem.basedir}/apache-maven-${maven.version}</launchDirectory>
 	  <includeOpenSSL>true</includeOpenSSL>
 	</configuration>
+      </plugin>
+      <plugin>
+	<artifactId>maven-jar-plugin</artifactId>
+	<version>2.3.2</version>
+	<configuration>
+	  <outputDirectory>${gem.basedir}/apache-maven-${maven.version}/lib</outputDirectory>
+	</configuration>
+	<executions>
+	  <execution>
+	    <phase>prepare-package</phase>
+	    <goals>
+	      <goal>jar</goal>
+	    </goals>
+	  </execution>
+	</executions>
       </plugin>
     </plugins>
   </build>

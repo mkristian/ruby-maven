@@ -22,6 +22,7 @@ Gem::Specification.new do |s|
     Dir.glob("lib/*") +
     Dir.glob("lib/ext/*") +
     Dir.glob("lib/ruby/ruby_maven.rb") +
+    Dir.glob("lib/ruby/ruby-maven.rb") +
     Dir.glob("lib/ruby/maven/**/*")
   ext = Dir.glob("ext/*ruby*")
   ext.delete(ext.detect{ |f| f =~ /jruby-complete/ })

@@ -71,10 +71,11 @@ module Maven
           version = args.detect do |a|
             a =~ /^-Dplugin.version=/
           end
+          version ||= options['-Dplugin.version']
 
           if version
             args.delete(version)
-            version = version.sub(/^-Dplugin.version=/, ':')
+            version = ":" + version.sub(/^-Dplugin.version=/, '')
           end
           aa = if index = args.index("--")
                  args[(index + 1)..-1]
@@ -193,7 +194,8 @@ module Maven
       a = generate_pom(*a)
       puts a.join ' '
       if defined? JRUBY_VERSION
-        launch_jruby(a)
+        # TODO use a setup like maven_gemify from jruby to launch maven
+        launch_java(a)
       else
         launch_java(a)
       end
