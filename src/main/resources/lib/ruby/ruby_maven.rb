@@ -16,7 +16,7 @@ module Maven
       :cucumber => [:test],
       :rspec => [:test],
       :runit => [:test],
-      :bundler => [:install]
+      :bundler => [:install, :update]
     }
     ALIASES = {
       :ruby => :jruby, 
