@@ -189,10 +189,12 @@ module Maven
     def exec(*args)
       log(args)
       a = command_line(args.dup.flatten)
+      verbose = options.delete('--verbose')
+      no_pom = options.delete('--no-pom')
       a << options_array
       a.flatten!
-      a = generate_pom(*a)
-      puts a.join ' '
+      a = generate_pom(*a) unless no_pom
+      puts a.join ' ' if verbose
       if defined? JRUBY_VERSION
         # TODO use a setup like maven_gemify from jruby to launch maven
         launch_java(a)
