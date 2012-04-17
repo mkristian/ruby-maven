@@ -22,7 +22,7 @@
 
   <groupId>rubygems</groupId>
   <artifactId>ruby-maven</artifactId>
-  <version>${maven.version}.${jruby.plugins.version}</version>
+  <version>${maven.version}.${jruby.plugins.version}.pre</version>
   <packaging>gem</packaging>
   <name>ruby wrapper around maven and more</name>
 
@@ -46,8 +46,8 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <!-- if some more gem releases are needed you can append some number
 	 here with the gem.version -->
-    <jruby.plugins.version>0.28.5</jruby.plugins.version>
-    <jruby.plugins.version.postfix></jruby.plugins.version.postfix>
+    <jruby.plugins.version>0.29.0</jruby.plugins.version>
+    <jruby.plugins.version.postfix>-SNAPSHOT</jruby.plugins.version.postfix>
     <maven.version>3.0.3</maven.version>
     <gem.basedir>${project.build.directory}/ruby-maven-${project.version}</gem.basedir>
   </properties>
