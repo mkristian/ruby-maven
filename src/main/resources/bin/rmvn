@@ -6,5 +6,4 @@ mvn = Maven::RubyMaven.new
 args = ARGV.dup
 ARGV.clear # clean up in case another script gets executed it gets clear ARGV
 
-print "maven commandline: "
 mvn.exec(*args)

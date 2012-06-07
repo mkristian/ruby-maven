@@ -10,12 +10,11 @@ module Maven
       :rake => [:rake],
       :jruby => [:jruby, :compile],
       :gem => [:package, :install, :push, :exec, :pom, :initialize, :irb],
-      :gemify => [:gemify, :versions],
-      :rails2 => [:new, :generate, :rake, :server, :console],
       :rails3 => [:new, :generate, :rake, :server, :console, :dbconsole, :pom, :initialize],
       :cucumber => [:test],
       :rspec => [:test],
       :runit => [:test],
+      :mini => [:test,:spec],
       :bundler => [:install, :update]
     }
     ALIASES = {
@@ -136,9 +135,9 @@ module Maven
     def options_array
       options.collect do |k,v|
         if k =~ /^-D/
-          v = "=#{v}" if v
+          v = "=#{v}" unless v.nil?
         else
-          v = " #{v}" if v
+          v = " #{v}" unless v.nil?
         end
         "#{k}#{v}"
       end
@@ -162,7 +161,7 @@ module Maven
               Maven::Tools::GemProject.new
             end
           filename = gemfiles[0]
-          proj.load(filename)
+          proj.load_gemfile(filename)
         else
           gemspecs = Dir["*.gemspec"]
           gemspecs.delete_if {|g| g =~ /.pom/}
@@ -173,9 +172,12 @@ module Maven
           end
         end
         if filename
-          proj.load(File.join(File.dirname(filename), 'Mavenfile'))
+          proj.load_jarfile(File.join(File.dirname(filename), 'Jarfile'))
+          proj.load_gemfile(File.join(File.dirname(filename), 'Mavenfile'))
           proj.add_defaults
-          pom = filename + ".pom"
+          #target = File.join(File.dirname(filename), 'target')
+          #FileUtils.mkdir_p target
+          pom = ".pom.xml"
           File.open(pom, 'w') do |f|
             f.puts proj.to_xml
           end
@@ -194,7 +196,7 @@ module Maven
       a << options_array
       a.flatten!
       a = generate_pom(*a) unless no_pom
-      puts a.join ' ' if verbose
+      puts "mvn #{a.join(' ')}" if verbose
       if defined? JRUBY_VERSION
         # TODO use a setup like maven_gemify from jruby to launch maven
         launch_java(a)

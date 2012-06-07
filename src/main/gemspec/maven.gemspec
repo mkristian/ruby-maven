@@ -35,6 +35,7 @@ Gem::Specification.new do |s|
   s.rubygems_version = %q{1.3.5}
   s.summary = %q{maven support for ruby projects with gemspec, Gemfile}
   s.add_dependency 'thor', '~> 0.14.6'
+  s.add_dependency 'maven-tools', "= #{s.version.to_s.sub(/^[0-9].[0-9].[0-9]./, '')}" 
 
   File.chmod(0755, File.join("bin", "mvn"))
 end
