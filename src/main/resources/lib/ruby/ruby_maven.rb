@@ -149,6 +149,10 @@ module Maven
       args
     end
 
+    def new_rails_project
+      Maven::Tools::RailsProject.new
+    end
+
     def generate_pom(*args)
       unless args.member?("-f") || args.member?("--file")
         gemfiles = Dir["*Gemfile"]
@@ -156,7 +160,7 @@ module Maven
         if gemfiles.size > 0
           proj =
             if File.exists? File.join( 'config', 'application.rb' )
-              Maven::Tools::RailsProject.new
+              new_rails_project
             else
               Maven::Tools::GemProject.new
             end
@@ -206,8 +210,17 @@ module Maven
     end
 
     def exec_in(launchdirectory, *args)
+      succeeded = nil
       FileUtils.cd(launchdirectory) do
-        exec(args)
+        succeeded = exec(args)
+      end
+      succeeded
+    end
+
+    def dump_pom(force = false, file = 'pom.xml')
+      if force || !File.exists?(file)
+        generate_pom
+        FileUtils.cp(".pom.xml", file)
       end
     end
   end
