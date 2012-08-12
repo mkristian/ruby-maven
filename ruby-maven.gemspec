@@ -1,5 +1,5 @@
 require 'fileutils'
-require 'lib/ruby/maven/ruby/version'
+require File.expand_path('lib/ruby/maven/ruby/version.rb')
 Gem::Specification.new do |s|
   s.name = %q{ruby-maven}
   s.version = Maven::Ruby::VERSION
