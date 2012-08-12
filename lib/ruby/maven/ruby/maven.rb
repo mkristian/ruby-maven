@@ -8,24 +8,32 @@ module Maven
       private
 
       def launch_jruby(args)
-        classpath_array.each do |path|
-          require path
-        end
-
         java.lang.System.setProperty("classworlds.conf", 
-                                     File.join(@maven_home, 'bin', "m2.conf"))
+                                     File.join(self.class.maven_home, 'bin', "m2.conf"))
 
-        java.lang.System.setProperty("maven.home", @maven_home)
+        java.lang.System.setProperty("maven.home", self.class.maven_home)
 
-        org.codehaus.plexus.classworlds.launcher.Launcher.main(args)
+        cw = self.class.class_world
+        org.apache.maven.cli.MavenCli.doMain( args, cw ) == 0
       end
 
-      def classpath_array
-        Dir.glob(File.join(@maven_home, "boot", "*jar"))
+      def self.class_world
+        @class_world ||= class_world!
+      end
+
+      def self.class_world!
+        (classpath_array + classpath_array('lib')).each do |path|
+          require path
+        end
+        org.codehaus.plexus.classworlds.ClassWorld.new("plexus.core", java.lang.Thread.currentThread().getContextClassLoader())
+      end
+      
+      def self.classpath_array(dir = 'boot')
+        Dir.glob(File.join(maven_home, dir, "*jar"))
       end
       
       def launch_java(*args)
-        system "java -cp #{classpath_array.join(':')} -Dmaven.home=#{File.expand_path(@maven_home)} -Dclassworlds.conf=#{File.expand_path(File.join(@maven_home, 'bin', 'm2.conf'))} org.codehaus.plexus.classworlds.launcher.Launcher #{args.join ' '}"
+        system "java -cp #{self.class.classpath_array.join(':')} -Dmaven.home=#{File.expand_path(self.class.maven_home)} -Dclassworlds.conf=#{File.expand_path(File.join(self.class.maven_home, 'bin', 'm2.conf'))} org.codehaus.plexus.classworlds.launcher.Launcher #{args.join ' '}"
       end
       
       def options_string
@@ -45,7 +53,11 @@ module Maven
 
       public
 
-      def maven_home
+      def self.class_world
+        @class_world ||= class_world!
+      end
+
+      def self.maven_home
         @maven_home = File.expand_path(File.join(File.dirname(__FILE__),
                                                  '..',
                                                  '..',

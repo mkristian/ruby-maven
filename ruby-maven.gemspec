@@ -27,8 +27,10 @@ Gem::Specification.new do |s|
   s.require_paths = ['lib/ruby']
   s.rubygems_version = %q{1.3.5}
   s.summary = %q{maven support for ruby projects with gemspec, Gemfile}
-  s.add_dependency 'thor', '~> 0.14.6'
-  s.add_dependency 'maven-tools', "~> 0.29.1"
+  s.add_dependency 'thor', '>= 0.14.6', '< 2.0' # mimic rails
+  s.add_dependency 'maven-tools', "~> 0.29.1" 
+  s.add_development_dependency 'minitest', '3.3.0'  
+  s.add_development_dependency 'rake', '= 0.9.2.2'
 
   File.chmod(0755, File.join("bin", "mvn"))
 end
