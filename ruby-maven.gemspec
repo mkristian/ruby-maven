@@ -1,9 +1,8 @@
 require 'fileutils'
-
 Gem::Specification.new do |s|
   s.name = %q{ruby-maven}
-  s.version = "#{File.basename(File.expand_path('..')).sub(/-SNAPSHOT/, '').sub(/[a-zA-Z-]+-/, '').gsub(/-/, '.')}"
-  s.required_rubygems_version = Gem::Requirement.new("> 1.3.1") if s.respond_to? :required_rubygems_version=
+  s.version = "3.0.4.1"
+
   s.authors = ["mkristian"]
   s.description = %q{maven support for rubygems based on maven 3.0. it allows to use xyz.gemspec file as pom file or the usual pom.xml files. with a rails3 application with a Gemfile (suitable for jruby). you need java installed or jruby but it will run with MRI (without installed jruby) since the maven will take care of the jruby to use.} 
   s.email = ["m.kristian@web.de"]
@@ -20,9 +19,6 @@ Gem::Specification.new do |s|
     Dir.glob("lib/ruby/ruby_maven.rb") +
     Dir.glob("lib/ruby/ruby-maven.rb") +
     Dir.glob("lib/ruby/maven/**/*")
-  ext = Dir.glob("ext/*ruby*")
-  ext.delete(ext.detect{ |f| f =~ /jruby-complete/ })
-  s.files += ext
   s.bindir = "bin"
   s.executables = ['rmvn']
   s.homepage = %q{http://github.com/mkristian/ruby-maven}

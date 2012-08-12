@@ -1,2 +1,9 @@
 target
 *~
+*.txt
+boot
+conf
+bin/mvn*
+lib/*jar
+lib/ext
+bin/m2*
