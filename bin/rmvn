@@ -8,4 +8,4 @@ magic = Maven::Ruby::PomMagic.new
 args = ARGV.dup
 ARGV.clear # clean up in case another script gets executed it gets clear ARGV
 
-mvn.exec(magic.generate_pom(*args))
+mvn.exec(*args)

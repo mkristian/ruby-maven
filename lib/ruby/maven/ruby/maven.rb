@@ -79,7 +79,7 @@ module Maven
 
       def verbose
         if @verbose.nil?
-          options.delete('--verbose').to_s == 'true'
+          options.delete('-Dverbose').to_s == 'true'
         else
           @verbose
         end

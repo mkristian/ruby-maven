@@ -1,3 +1,4 @@
+require 'maven/ruby/maven'
 module Maven
   module Ruby
     class Cli
@@ -104,20 +105,29 @@ module Maven
       end
 
       def setup(*args)
+        args = magic_pom(args)
         log(args)
         command_line(args.dup.flatten)
+      end
+
+      protected
+      
+      def magic_pom(*args)
+        file = PomMagic.new.generate_pom(args)
+        args += ['-f', file] if file && !(args.member?("-f") || args.member?("--file"))
+        args      
       end
 
       public
 
       def exec(*args)
-        mvn = RubyMaven.new 
+        mvn = Maven.new 
         mvn.exec(setup(args))
       end
 
       def exec_in(launchdirectory, *args)
-        mvn = RubyMaven.new
-        mvn.exec(launchdirectory, setup(args))
+        mvn = Maven.new
+        mvn.exec_in(launchdirectory, setup(args))
       end
     end
   end
