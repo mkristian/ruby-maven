@@ -34,6 +34,7 @@
   </repositories>
 
   <dependencies>
+    <!-- get the gems so `gem build` works -->
     <dependency>
        <groupId>rubygems</groupId>
        <artifactId>thor</artifactId>
@@ -50,12 +51,7 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <!-- if some more gem releases are needed you can append some number
-	 here with the gem.version -->
-    <jruby.plugins.version>0.29.1</jruby.plugins.version>
-    <!--jruby.plugins.version.postfix>-SNAPSHOT</jruby.plugins.version.postfix-->
     <maven.version>3.0.4</maven.version>
-    <gem.basedir>${project.build.directory}/ruby-maven-${project.version}</gem.basedir>
   </properties>
   <build>
     <resources>
@@ -90,7 +86,6 @@
 	  </execution>
 	</executions>
       </plugin>
-      
       <plugin>
 	<groupId>de.saumya.mojo</groupId>
 	<artifactId>gem-maven-plugin</artifactId>
@@ -133,5 +128,4 @@
       </plugin>
     </plugins>
   </build>
-  
 </project>

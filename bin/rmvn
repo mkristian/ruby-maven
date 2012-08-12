@@ -1,9 +1,11 @@
 #!/usr/bin/env ruby
-require 'ruby_maven'
+require 'maven/ruby/cli'
+require 'maven/ruby/pom_magic'
 
-mvn = Maven::RubyMaven.new
+mvn = Maven::Ruby::Cli.new
+magic = Maven::Ruby::PomMagic.new
 
 args = ARGV.dup
 ARGV.clear # clean up in case another script gets executed it gets clear ARGV
 
-mvn.exec(*args)
+mvn.exec(magic.generate_pom(*args))
