@@ -64,6 +64,10 @@ or
 
 will run the specs.
 
+## hacking
+
+the directory layout uses the one which comes from maven itself and thus the ruby code is located under **lib/ruby**.
+
 ## DSL
 
 `rmvn` magic obeys following files
