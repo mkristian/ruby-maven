@@ -105,4 +105,13 @@ module Maven
       end
     end
   end
+
+  class RubyMaven
+
+    def self.new(*args)
+      warn "deprecated: use Maven::Ruby::Maven instead"
+      Maven::Ruby::Maven.new(*args)
+    end
+  end
+
 end
