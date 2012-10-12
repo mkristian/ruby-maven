@@ -2,6 +2,15 @@ require 'fileutils'
 require 'java' if defined? JRUBY_VERSION
 
 module Maven
+  
+  class RubyMaven
+    
+    def self.new(*args)
+      warn "deprecated: use Maven::Ruby::Cli or Maven::Ruby::Maven instead"
+      ::Maven::Ruby::Cli.new(*args)
+    end
+  end
+
   module Ruby
     class Maven
 
@@ -12,7 +21,6 @@ module Maven
                                      File.join(self.class.maven_home, 'bin', "m2.conf"))
 
         java.lang.System.setProperty("maven.home", self.class.maven_home)
-
         cw = self.class.class_world
         org.apache.maven.cli.MavenCli.doMain( args, cw ) == 0
       end
@@ -44,11 +52,15 @@ module Maven
         options.collect do |k,v|
           if k =~ /^-D/
             v = "=#{v}" unless v.nil?
+            "#{k}#{v}"
           else
-            v = " #{v}" unless v.nil?
+            if v.nil?
+              "#{k}"
+            else
+              ["#{k}", "#{v}"]
+            end
           end
-          "#{k}#{v}"
-        end
+        end.flatten
       end
 
       public
@@ -79,38 +91,33 @@ module Maven
 
       def verbose
         if @verbose.nil?
-          options.delete('-Dverbose').to_s == 'true'
+          @verbose = options.delete('-Dverbose').to_s == 'true'
         else
           @verbose
         end
       end
 
       def exec(*args)
+        puts "PWD: #{File.expand_path('.')}"  if verbose
         a = args.dup + options_array
         a.flatten!
         puts "mvn #{a.join(' ')}" if verbose
         if defined? JRUBY_VERSION
+          puts "using jruby #{JRUBY_VERSION}" if verbose
           launch_jruby(a)
         else
+          puts "using java" if verbose
           launch_java(a)
         end
       end
 
       def exec_in(launchdirectory, *args)
         succeeded = nil
-        FileUtils.cd(launchdirectory) do
+        Dir.chdir(launchdirectory) do
           succeeded = exec(args)
         end
         succeeded
       end
-    end
-  end
-
-  class RubyMaven
-
-    def self.new(*args)
-      warn "deprecated: use Maven::Ruby::Maven instead"
-      Maven::Ruby::Maven.new(*args)
     end
   end
 

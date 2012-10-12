@@ -1,4 +1,5 @@
 require 'maven/ruby/maven'
+require 'maven/ruby/pom_magic'
 module Maven
   module Ruby
     class Cli
@@ -58,7 +59,7 @@ module Maven
             ruby_args = (args[start, (index || 1000) - start] || []).join(' ')
 
             aa << "de.saumya.mojo:#{name}-maven-plugin#{version}:#{goal}"
-            aa << "-Dargs=\"#{ruby_args}\"" if ruby_args.size > 0
+            aa << "\"-Dargs=#{ruby_args}\"" if ruby_args.size > 0
             args.replace(aa)
           else
             args.delete("--")
@@ -104,30 +105,37 @@ module Maven
         args
       end
 
-      def setup(*args)
-        args = magic_pom(args)
+      def setup(dir = '.', *args)
         log(args)
-        command_line(args.dup.flatten)
+        args = command_line(args.dup.flatten)
+        args = magic_pom(dir, *args) unless options.delete('--no-pom')
+        args
+      end
+
+      def mvn
+        @mvn ||= Maven.new 
       end
 
       protected
       
-      def magic_pom(*args)
-        file = PomMagic.new.generate_pom(args)
-        args += ['-f', file] if file && !(args.member?("-f") || args.member?("--file"))
-        args      
+      def magic_pom(dir = '.', *args)
+        file = PomMagic.new.generate_pom(File.expand_path(dir), *args)
+        args += ['-f', file] if file && !(args.member?("-f") || args.member?("--file"))  
+        args.flatten     
       end
 
       public
 
+      def options
+        mvn.options
+      end
+
       def exec(*args)
-        mvn = Maven.new 
-        mvn.exec(setup(args))
+        mvn.exec(setup('.', *args))
       end
 
       def exec_in(launchdirectory, *args)
-        mvn = Maven.new
-        mvn.exec_in(launchdirectory, setup(args))
+        mvn.exec_in(launchdirectory, setup(launchdirectory, *args))
       end
     end
   end
