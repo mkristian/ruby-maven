@@ -8,3 +8,5 @@ lib/*jar
 lib/ext
 bin/m2*
 .pom.xml
+*.lock
+*.gem
