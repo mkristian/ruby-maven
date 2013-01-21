@@ -1,3 +1,4 @@
+$LOAD_PATH << 'lib/ruby'
 require 'maven/ruby/cli'
 require 'stringio'
 
@@ -10,7 +11,7 @@ describe Maven::Ruby::Cli do
   it 'should launch maven with pom.xml' do
     subject.exec('-l', log, 'validate')
     File.read(log).must_match /BUILD SUCCESS/
-    File.read(log).must_match /Building ruby wrapper/
+    File.read(log).must_match /Building maven support for ruby projects/
   end
 
   it 'should launch maven without pom.xml' do

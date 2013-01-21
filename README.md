@@ -1,6 +1,8 @@
-# ruby maven [![Build Status](https://secure.travis-ci.org/mkristian/ruby-maven.png)](http://travis-ci.org/mkristian/ruby-maven) #
+# ruby maven # 
 
-once installed it is a fully functional maven installaton with *rmvn* as command.
+* [![Build Status](https://secure.travis-ci.org/mkristian/ruby-maven.png)](http://travis-ci.org/mkristian/ruby-maven) #
+
+ruby maven is a fully functional maven installation with a ruby command *rmvn* as launcher.
 
 it also provides an easy way to embed maven with your ruby scripts
 
@@ -40,7 +42,7 @@ or with jruby
 
     jgem install ruby-maven
     
-MRI performs much better due to the fast startup of the interpreter.
+when using ruby-maven then MRI performs much better due to the fast startup of the interpreter.
 
 ## build the gem and run specs
 
@@ -50,11 +52,11 @@ to build the gem you need [http://maven.apache.org](maven)
 	
 will create the gem in _target_ directory.
 
-to run the specs it is sufficient to run
+to run the specs first you need to get all the files for the gem in place (download them via maven) by executing
 
     mvn process-resources
 	
-to get all the files for the gem in place (downloaded via maven). now
+now
 
     rake
 	

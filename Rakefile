@@ -3,8 +3,8 @@
 task :default => [ :spec ]
 
 task :spec do
-  require 'rubygems'
-  require 'bundler/setup'
+#  require 'rubygems'
+#  require 'bundler/setup'
   require 'minitest/autorun'
 
   $LOAD_PATH << "spec"

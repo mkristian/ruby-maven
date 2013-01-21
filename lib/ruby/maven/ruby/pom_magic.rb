@@ -19,6 +19,7 @@ module Maven
 
       def generate_pom(dir = '.', *args)
         pom = nil
+        dir = File.expand_path( dir )
         Dir.chdir(dir) do
           if index = (args.index("-f") || args.index("--file"))
             filename = args[index + 1]
@@ -55,7 +56,7 @@ module Maven
             proj.load_jarfile(File.join(File.dirname(filename), 'Jarfile'))
             proj.load_gemfile(File.join(File.dirname(filename), 'Mavenfile'))
             proj.add_defaults
-            pom = pom_xml(dir) 
+            pom = pom_xml(dir)
             File.open(pom, 'w') do |f|
               f.puts proj.to_xml
             end
