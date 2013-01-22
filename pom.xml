@@ -32,16 +32,6 @@
       <id>rubygems-releases</id>
       <url>http://rubygems-proxy.torquebox.org/releases</url>
     </pluginRepository>
-    <pluginRepository>
-      <id>sonatype-snapshots</id>
-      <url>http://oss.sonatype.org/content/repositories/snapshots</url>
-      <releases>
-        <enabled>false</enabled>
-      </releases>
-      <snapshots>
-        <enabled>true</enabled>
-      </snapshots>
-    </pluginRepository>
   </pluginRepositories>
   <dependencies>
     <dependency>
@@ -117,9 +107,9 @@
   <properties>
     <gem.home>${project.build.directory}/rubygems</gem.home>
     <gem.path>${project.build.directory}/rubygems</gem.path>
-    <jruby>1.7.2</jruby>
     <jruby.18and19>true</jruby.18and19>
-    <jruby.plugins.version>0.29.2-SNAPSHOT</jruby.plugins.version>
+    <jruby.plugins.version>0.29.2</jruby.plugins.version>
+    <jruby.version>1.7.2</jruby.version>
     <jruby.versions>1.5.6,1.6.8,1.7.2</jruby.versions>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
@@ -130,28 +120,28 @@
         <version>2.5</version>
         <configuration>
           <filesets>
-	    <fileset>
-	      <directory>lib</directory>
-	      <includes>
-		<include>*jar</include>
-		<include>ext/**</include>
-	      </includes>
-	    </fileset>
-	    <fileset>
-	      <directory>bin</directory>
-	      <includes>
-		<include>*</include>
-	      </includes>
-	      <excludes>
-		<exclude>rmvn</exclude>
-	      </excludes>
-	    </fileset>
-	    <fileset>
-	      <directory>./</directory>
-	      <includes>
-		<include>*.txt</include>
-	      </includes>
-	    </fileset>
+            <fileset>
+              <directory>lib</directory>
+              <includes>
+                <include>*jar</include>
+                <include>ext/**</include>
+              </includes>
+            </fileset>
+            <fileset>
+              <directory>bin</directory>
+              <excludes>
+                <exclude>rmvn</exclude>
+              </excludes>
+              <includes>
+                <include>*</include>
+              </includes>
+            </fileset>
+            <fileset>
+              <directory>./</directory>
+              <includes>
+                <include>*.txt</include>
+              </includes>
+            </fileset>
           </filesets>
         </configuration>
       </plugin>
@@ -166,14 +156,14 @@
             </goals>
             <configuration>
               <artifactItems>
-		<artifactItem>
-		  <groupId>org.apache.maven</groupId>
-		  <artifactId>apache-maven</artifactId>
-		  <version>${maven.version}</version>
-		  <classifier>bin</classifier>
-		  <type>zip</type>
-		  <outputDirectory>${project.build.directory}</outputDirectory>
-		</artifactItem>
+                <artifactItem>
+                  <artifactId>apache-maven</artifactId>
+                  <classifier>bin</classifier>
+                  <groupId>org.apache.maven</groupId>
+                  <outputDirectory>${project.build.directory}</outputDirectory>
+                  <type>zip</type>
+                  <version>${maven.version}</version>
+                </artifactItem>
               </artifactItems>
               <outputAbsoluteArtifactFilename>false</outputAbsoluteArtifactFilename>
             </configuration>
@@ -229,7 +219,7 @@
           </dependency>
           <dependency>
             <groupId>rubygems</groupId>
-            <artifactId>jruby-openssl-maven</artifactId>
+            <artifactId>jruby-openssl</artifactId>
             <version>[0,)</version>
             <type>gem</type>
           </dependency>
@@ -291,8 +281,8 @@
     </pluginManagement>
     <resources>
       <resource>
-        <targetPath>${project.basedir}</targetPath>
         <directory>${project.build.directory}/apache-maven-${maven.version}</directory>
+        <targetPath>${project.basedir}</targetPath>
       </resource>
     </resources>
   </build>
