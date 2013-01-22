@@ -32,6 +32,6 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'minitest', '~> 4.3'  
   s.add_development_dependency 'rake', '~> 10.0.3'
 
-  File.chmod(0755, File.join("bin", "mvn"))
+  File.chmod(0755, File.join("bin", "mvn")) rescue nil
 end
 
