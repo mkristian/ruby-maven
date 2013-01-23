@@ -60,6 +60,16 @@
     </dependency>
     <dependency>
       <groupId>rubygems</groupId>
+      <artifactId>jruby-openssl</artifactId>
+      <type>gem</type>
+    </dependency>
+    <dependency>
+      <groupId>rubygems</groupId>
+      <artifactId>bouncy-castle-java</artifactId>
+      <type>gem</type>
+    </dependency>
+    <dependency>
+      <groupId>rubygems</groupId>
       <artifactId>bundler</artifactId>
       <type>gem</type>
     </dependency>
@@ -82,6 +92,18 @@
         <groupId>rubygems</groupId>
         <artifactId>thor</artifactId>
         <version>0.16.0</version>
+        <type>gem</type>
+      </dependency>
+      <dependency>
+        <groupId>rubygems</groupId>
+        <artifactId>bouncy-castle-java</artifactId>
+        <version>1.5.0146.1</version>
+        <type>gem</type>
+      </dependency>
+      <dependency>
+        <groupId>rubygems</groupId>
+        <artifactId>jruby-openssl</artifactId>
+        <version>0.8.2</version>
         <type>gem</type>
       </dependency>
       <dependency>
@@ -214,12 +236,6 @@
           <dependency>
             <groupId>rubygems</groupId>
             <artifactId>maven-tools</artifactId>
-            <version>[0,)</version>
-            <type>gem</type>
-          </dependency>
-          <dependency>
-            <groupId>rubygems</groupId>
-            <artifactId>jruby-openssl</artifactId>
             <version>[0,)</version>
             <type>gem</type>
           </dependency>
