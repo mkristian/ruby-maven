@@ -36,9 +36,11 @@ end
 
 execute_in_phase( :initialize ) do
   pom = File.read( 'pom.xml' )
-  dot_pom = File.read( '.pom.xml' )
-  if pom != dot_pom
-    File.open( 'pom.xml', 'w' ) { |f| f.puts dot_pom }
+  if File.exists? '.pom.xml'
+    dot_pom = File.read( '.pom.xml' )
+    if pom != dot_pom
+      File.open( 'pom.xml', 'w' ) { |f| f.puts dot_pom }
+    end
   end
 end
 
