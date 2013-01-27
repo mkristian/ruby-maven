@@ -20,7 +20,7 @@
 #
 module Maven
   module Ruby
-    VERSION = '3.0.4.1.3'
+    VERSION = '3.0.4.1.4'
     # allow to overwrite the default from maven-tools
     # since jruby-maven-plugins depend on maven-tools and
     # default version in maven-tools is often behind
