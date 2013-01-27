@@ -7,7 +7,9 @@ Gem::Specification.new do |s|
   s.authors = ["mkristian"]
   s.description = %q{maven support for rubygems based on maven 3.0. it allows to use xyz.gemspec file as pom file or the usual pom.xml files. with a rails3 application with a Gemfile (suitable for jruby). you need java installed or jruby but it will run with MRI (without installed jruby) since the maven will take care of the jruby to use.} 
   s.email = ["m.kristian@web.de"]
-  s.extra_rdoc_files = ["NOTICE.txt", "LICENSE.txt", "README.txt"]
+  s.extra_rdoc_files = ["NOTICE.txt", "LICENSE.txt", "README.txt", 'MIT-LICENSE']
+
+  s.license = 'MIT' 
 
   s.files = Dir.glob("*.txt") +
     Dir.glob("bin/mvn*") +
@@ -28,7 +30,8 @@ Gem::Specification.new do |s|
   s.rubygems_version = %q{1.3.5}
   s.summary = %q{maven support for ruby projects with gemspec, Gemfile}
   s.add_dependency 'thor', '>= 0.14.6', '< 2.0' # mimic rails
-  s.add_dependency 'maven-tools', "~> 0.32" 
+  # TODO come back to version semantic in maven-tools
+  s.add_dependency 'maven-tools', "~> 0.32.1" 
   s.add_development_dependency 'minitest', '~> 4.3'  
   s.add_development_dependency 'rake', '~> 10.0.3'
 
