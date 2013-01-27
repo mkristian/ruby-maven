@@ -1,5 +1,6 @@
 require 'fileutils'
 require 'maven/tools/rails_project'
+require 'maven/ruby/version'
 
 module Maven
   module Ruby
@@ -55,7 +56,7 @@ module Maven
           if proj
             proj.load_jarfile(File.join(File.dirname(filename), 'Jarfile'))
             proj.load_gemfile(File.join(File.dirname(filename), 'Mavenfile'))
-            proj.add_defaults
+            proj.add_defaults( :jruby_plugins => JRUBY_MAVEN_PLUGINS_VERSION )
             pom = pom_xml(dir)
             File.open(pom, 'w') do |f|
               f.puts proj.to_xml

@@ -79,6 +79,7 @@ module Maven
 
       def maybe_print_help(args)
         if args.size == 0 || args[0] == "--help"
+          puts "ruby-maven version #{VERSION} using jruby-maven-plugins version #{JRUBY_MAVEN_PLUGINS_VERSION}"
           puts "usage: rmvn [<plugin-name> [<args>] [-- <maven-options>]] | [<maven-goal>|<maven-phase> <maven-options>] | --help"
           PLUGINS.each do |name, goals|
             puts
