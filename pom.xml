@@ -47,35 +47,35 @@
     <dependency>
       <groupId>rubygems</groupId>
       <artifactId>thor</artifactId>
+      <version>[0.14.6,2.0)</version>
       <type>gem</type>
       <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>rubygems</groupId>
       <artifactId>maven-tools</artifactId>
+      <version>[0.32.1,0.32.99999]</version>
       <type>gem</type>
       <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>rubygems</groupId>
       <artifactId>minitest</artifactId>
+      <version>[4.3,4.99999]</version>
       <type>gem</type>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>rubygems</groupId>
       <artifactId>rake</artifactId>
+      <version>[10.0.3,10.0.99999]</version>
       <type>gem</type>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>rubygems</groupId>
       <artifactId>jruby-openssl</artifactId>
-      <type>gem</type>
-    </dependency>
-    <dependency>
-      <groupId>rubygems</groupId>
-      <artifactId>bouncy-castle-java</artifactId>
+      <version>0.8.2</version>
       <type>gem</type>
     </dependency>
     <dependency>
@@ -87,48 +87,6 @@
   </dependencies>
   <dependencyManagement>
     <dependencies>
-      <dependency>
-        <groupId>rubygems</groupId>
-        <artifactId>ruby-maven</artifactId>
-        <version>3.0.4.1.2</version>
-        <type>gem</type>
-      </dependency>
-      <dependency>
-        <groupId>rubygems</groupId>
-        <artifactId>maven-tools</artifactId>
-        <version>0.32.0</version>
-        <type>gem</type>
-      </dependency>
-      <dependency>
-        <groupId>rubygems</groupId>
-        <artifactId>thor</artifactId>
-        <version>0.16.0</version>
-        <type>gem</type>
-      </dependency>
-      <dependency>
-        <groupId>rubygems</groupId>
-        <artifactId>bouncy-castle-java</artifactId>
-        <version>1.5.0146.1</version>
-        <type>gem</type>
-      </dependency>
-      <dependency>
-        <groupId>rubygems</groupId>
-        <artifactId>jruby-openssl</artifactId>
-        <version>0.8.2</version>
-        <type>gem</type>
-      </dependency>
-      <dependency>
-        <groupId>rubygems</groupId>
-        <artifactId>minitest</artifactId>
-        <version>4.4.0</version>
-        <type>gem</type>
-      </dependency>
-      <dependency>
-        <groupId>rubygems</groupId>
-        <artifactId>rake</artifactId>
-        <version>10.0.3</version>
-        <type>gem</type>
-      </dependency>
       <dependency>
         <groupId>rubygems</groupId>
         <artifactId>bundler</artifactId>
