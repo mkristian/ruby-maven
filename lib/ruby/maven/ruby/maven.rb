@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2013 mkristian
+# Copyright (C) 2013 Christian Meier
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy of
 # this software and associated documentation files (the "Software"), to deal in
@@ -27,6 +27,7 @@ module Maven
     
     def self.new(*args)
       warn "deprecated: use Maven::Ruby::Cli or Maven::Ruby::Maven instead"
+      require 'maven/ruby/cli'
       ::Maven::Ruby::Cli.new(*args)
     end
   end

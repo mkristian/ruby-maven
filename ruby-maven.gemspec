@@ -4,7 +4,7 @@ Gem::Specification.new do |s|
   s.name = %q{ruby-maven}
   s.version = Maven::Ruby::VERSION
 
-  s.authors = ["mkristian"]
+  s.authors = ["Christian Meier"]
   s.description = %q{maven support for rubygems based on maven 3.0. it allows to use xyz.gemspec file as pom file or the usual pom.xml files. with a rails3 application with a Gemfile (suitable for jruby). you need java installed or jruby but it will run with MRI (without installed jruby) since the maven will take care of the jruby to use.} 
   s.email = ["m.kristian@web.de"]
   s.extra_rdoc_files = ["NOTICE.txt", "LICENSE.txt", "README.txt", 'MIT-LICENSE']
