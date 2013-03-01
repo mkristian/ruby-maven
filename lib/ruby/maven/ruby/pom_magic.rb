@@ -25,6 +25,10 @@ require 'maven/ruby/version'
 module Maven
   module Ruby
     class PomMagic
+      
+      def initialize( default_pom = '.pom.xml' )
+        @default_pom = default_pom
+      end
 
       def dump_pom( dir = '.', force = false, file = 'pom.xml' )
         if force || !File.exists?( file )
@@ -96,15 +100,19 @@ module Maven
         File.expand_path( File.join( dir, name ) )
       end
 
-      def pom_xml( dir = '.', proj, args )
-        index = args.index( '-f' ) || args.index( '--file' )
-        index ||= args.index( '--pom' )
+      def pom_xml( dir, proj, args )
+        dir ||= '.'
+        #index = args.index( '-f' ) || args.index( '--file' )
+        index = args.index( '--pom' )
         name = args[ index + 1 ] if index
-        pom = File.join( dir, name || '.pom.xml' )
+        pom = File.join( dir, name || @default_pom )
         File.open(pom, 'w') do |f|
           f.puts proj.to_xml
         end
-        if index
+        f_index = args.index( '-f' ) || args.index( '--file' )
+        if f_index
+          args[ f_index + 1 ] = pom
+        elsif index
           args[ index ] = '-f'
         else
           args += ['-f', pom]

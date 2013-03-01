@@ -9,8 +9,8 @@ describe Maven::Ruby::PomMagic do
     
     it 'should generate project specific pom.xml with given name' do
       pom = File.expand_path( 'it/project/_pom.xml' )
-      subject.generate_pom(File.join('it', 'project')).must_equal pom
-      File.read(pom).must_match /<name><..CDATA.project - gem..><.name>/
+      subject.generate_pom(File.join('it', 'project')).must_equal [ '-f', pom ]
+      File.read(pom).must_match /<name><..CDATA.minimal - gem..><.name>/
     end
 
   end
@@ -28,21 +28,21 @@ describe Maven::Ruby::PomMagic do
 
   it 'should generate rails specific pom.xml' do
     pom =  File.expand_path( 'it/rails/.pom.xml' )
-    subject.generate_pom(File.join('it', 'rails')).must_equal pom
+    subject.generate_pom(File.join('it', 'rails')).must_equal ['-f', pom]
     File.read(pom).must_match /<name><..CDATA.rails - rails application..><.name>/
   end
 
   it 'should generate project specific pom.xml' do
     pom = File.expand_path( 'it/project/.pom.xml' )
-    subject.generate_pom(File.join('it', 'project')).must_equal pom
-    File.read(pom).must_match /<name><..CDATA.project - gem..><.name>/
+    subject.generate_pom(File.join('it', 'project')).must_equal ['-f', pom]
+    File.read(pom).must_match /<name><..CDATA.minimal - gem..><.name>/
   end
 
   it 'should generate project specific pom.xml using gemspec' do
     pom = File.expand_path( 'it/project/.pom.xml' )
     subject.generate_pom(File.join('it', 'project'), 
                          '-f', 
-                         'minimal.gemspec').must_equal pom
+                         'minimal.gemspec').must_equal [ '-f', pom ]
     File.read(pom).must_match /<name><..CDATA.minimal - gem..><.name>/
   end
 
@@ -50,12 +50,12 @@ describe Maven::Ruby::PomMagic do
     pom = File.expand_path( 'it/project/.pom.xml' )
     subject.generate_pom(File.join('it', 'project'), 
                          '-f', 
-                         'Gemfile2').must_equal pom
+                         'Gemfile2').must_equal [ '-f', pom ]
     File.read(pom).must_match /<name><..CDATA.minimal - gem..><.name>/
   end
 
   it 'should generate project specific pom.xml without Gemfile' do
-    subject.generate_pom(File.join('it', 'project_no_gemfile')).must_equal File.expand_path( 'it/project_no_gemfile/.pom.xml' )
+    subject.generate_pom(File.join('it', 'project_no_gemfile')).must_equal [ '-f', File.expand_path( 'it/project_no_gemfile/.pom.xml' ) ]
   end
 
 end
