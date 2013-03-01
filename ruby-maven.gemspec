@@ -31,7 +31,7 @@ Gem::Specification.new do |s|
   s.summary = %q{maven support for ruby projects with gemspec, Gemfile}
   s.add_dependency 'thor', '>= 0.14.6', '< 2.0' # mimic rails
   # TODO come back to version semantic in maven-tools
-  s.add_dependency 'maven-tools', "~> 0.32.1" 
+  s.add_dependency 'maven-tools', "~> 0.32.3" 
   s.add_development_dependency 'minitest', '~> 4.3'  
   s.add_development_dependency 'rake', '~> 10.0.3'
 

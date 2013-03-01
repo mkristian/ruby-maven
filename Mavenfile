@@ -41,7 +41,7 @@ build.resources.add do |r|
 end
 
 # just lock the versions
-properties['jruby.plugins.version'] = '0.29.3'
+properties['jruby.plugins.version'] = '0.29.4'
 properties['jruby.version'] = '1.7.2'
 
 # overwrite via cli -Djruby.versions=1.6.7
