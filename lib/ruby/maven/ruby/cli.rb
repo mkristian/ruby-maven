@@ -129,7 +129,7 @@ module Maven
       def setup(dir = '.', *args)
         log(args)
         args = command_line(args.dup.flatten)
-        args = magic_pom(dir, *args) unless options.delete('--no-pom')
+        args = magic_pom(dir, *args)
         args
       end
 
@@ -140,9 +140,7 @@ module Maven
       protected
       
       def magic_pom(dir = '.', *args)
-        file = PomMagic.new.generate_pom(File.expand_path(dir), *args)
-        args += ['-f', file] if file && !(args.member?("-f") || args.member?("--file"))  
-        args.flatten     
+        PomMagic.new.generate_pom(File.expand_path(dir), *args) 
       end
 
       public
