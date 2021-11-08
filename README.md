@@ -1,1 +1,1 @@
-project moved to https://github.com/takari/ruby-maven
+project moved to https://github.com/jruby/ruby-maven
